@@ -6,7 +6,13 @@
             Zoom: {{zoomLevel | number:'2.2-2'}}
             - Lgn,Lat: [123,456]
         </label>
-        <input type="range" class="form-range">
+        <input  type="range" 
+                class="form-range"
+                [value]="zoomLevel"
+                min="0"
+                max="18"
+                #zoomInput
+                (input)="zoomChaged(zoomInput.value)">
     </div>
     <div class="col-12">
         <button class="btn btn-primary"
