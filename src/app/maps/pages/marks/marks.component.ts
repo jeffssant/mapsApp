@@ -82,8 +82,10 @@ export class MarksComponent implements AfterViewInit {
     });
   }
 
-  goMarker(){
-    
+  goMarker(marker: mapboxgl.Marker){
+    this.maps.flyTo({
+      center: marker.getLngLat()
+    })
   }
 
 }

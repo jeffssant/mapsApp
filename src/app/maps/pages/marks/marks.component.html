@@ -3,9 +3,10 @@
         (click)="addMarker()" >
         + Add
     </li>
-    <li class="list-group-item text-white" 
-        (click)="goMarker()"
-        *ngFor="let item of markers; let i = index" [ngStyle]="{'background-color': item.color}">
+    <li class="list-group-item text-white"         
+        *ngFor="let item of markers; let i = index" 
+        [ngStyle]="{'background-color': item.color}"
+        (click)="goMarker(item.marker)">
         Maker {{ i + 1}}
     </li>
 </ul>
