@@ -118,9 +118,7 @@ export class MarksComponent implements AfterViewInit {
   readMarkerLS(){
     if(!localStorage.getItem('Markers')){return;}
 
-    const lngLatArr: MarkerColor[] = JSON.parse(localStorage.getItem('Markers')!);
-
-    console.log(lngLatArr[0].center);
+    const lngLatArr: MarkerColor[] = JSON.parse(localStorage.getItem('Markers')!);   
 
     lngLatArr.forEach(m => {
       const newMaker = new mapboxgl.Marker({
