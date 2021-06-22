@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 
 import * as mapboxgl from "mapbox-gl";
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-marks',
@@ -20,6 +21,13 @@ import * as mapboxgl from "mapbox-gl";
       border-radius: 5px;
       padding: 10px;
       z-index = 99999;
+    }
+    .list-group{
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      cursor: pointer
     }
     `
   ]
@@ -41,11 +49,25 @@ export class MarksComponent implements AfterViewInit {
     zoom: this.zoomLevel
     });
 
-    new mapboxgl.Marker()
+    /* const markerHtml: HTMLElement = document.createElement('div');
+    markerHtml.innerHTML = 'Marcador'
+    new mapboxgl.Marker({
+        element: markerHtml
+      })
       .setLngLat(this.center)
-      .addTo(this.maps)
+      .addTo(this.maps) */
+    
   }
 
- 
+  addMarker() {
+    const color = "#xxxxxx".replace(/x/g, y=>(Math.random()*16|0).toString(16));
+
+    const AddM = new mapboxgl.Marker({
+      draggable: true,
+      color
+    })
+    .setLngLat(this.center)
+    .addTo(this.maps) 
+  }
 
 }
