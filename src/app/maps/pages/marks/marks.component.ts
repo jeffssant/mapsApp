@@ -3,6 +3,11 @@ import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angula
 import * as mapboxgl from "mapbox-gl";
 import { element } from 'protractor';
 
+interface MarkerColor{
+  color: string;
+  marker: mapboxgl.Marker
+}
+
 @Component({
   selector: 'app-marks',
   templateUrl: './marks.component.html',
@@ -38,6 +43,8 @@ export class MarksComponent implements AfterViewInit {
   maps!: mapboxgl.Map;
   zoomLevel: number = 15;
   center: [number,number] = [-46.451020460515885 , -23.533707897122152 ];
+  
+  markers: MarkerColor[] = []
 
   constructor() { }
 
@@ -67,7 +74,16 @@ export class MarksComponent implements AfterViewInit {
       color
     })
     .setLngLat(this.center)
-    .addTo(this.maps) 
+    .addTo(this.maps);
+
+    this.markers.push({
+      color:color,
+      marker: AddM
+    });
+  }
+
+  goMarker(){
+    
   }
 
 }
