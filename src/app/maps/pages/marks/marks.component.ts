@@ -85,6 +85,10 @@ export class MarksComponent implements AfterViewInit {
     });
 
     this.SaveMarkerLS();
+
+    AddM.on('dragend', () => {
+      this.SaveMarkerLS();
+    })
   }
 
   goMarker(marker: mapboxgl.Marker){
@@ -129,8 +133,20 @@ export class MarksComponent implements AfterViewInit {
       this.markers.push({
         marker: newMaker,
         color: m.color
+      });
+
+      newMaker.on('dragend', () => {
+        this.SaveMarkerLS();
       })
     })
+  }
+
+
+  remove(index: number) {
+    this.markers[index].marker?.remove();
+    this.markers.splice(index, 1)
+
+    this.SaveMarkerLS();
   }
 
 }

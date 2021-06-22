@@ -6,7 +6,8 @@
     <li class="list-group-item text-white"         
         *ngFor="let item of markers; let i = index" 
         [ngStyle]="{'background-color': item.color}"
-        (click)="goMarker(item.marker!)">
+        (click)="goMarker(item.marker!)"
+        (dblclick)="remove(i)">
         Maker {{ i + 1}}
     </li>
 </ul>
