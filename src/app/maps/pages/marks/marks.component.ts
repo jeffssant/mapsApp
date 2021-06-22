@@ -5,7 +5,8 @@ import { element } from 'protractor';
 
 interface MarkerColor{
   color: string;
-  marker: mapboxgl.Marker
+  marker?: mapboxgl.Marker;
+  center?: [number, number]
 }
 
 @Component({
@@ -56,6 +57,8 @@ export class MarksComponent implements AfterViewInit {
     zoom: this.zoomLevel
     });
 
+    this.readMarkerLS()
+
     /* const markerHtml: HTMLElement = document.createElement('div');
     markerHtml.innerHTML = 'Marcador'
     new mapboxgl.Marker({
@@ -80,11 +83,53 @@ export class MarksComponent implements AfterViewInit {
       color:color,
       marker: AddM
     });
+
+    this.SaveMarkerLS();
   }
 
   goMarker(marker: mapboxgl.Marker){
     this.maps.flyTo({
-      center: marker.getLngLat()
+      center: marker!.getLngLat()
+    })
+    
+  }
+
+  SaveMarkerLS(){
+
+    const lngLatArr: MarkerColor[] = [];
+
+    this.markers.forEach(m => {
+      const color = m.color;
+      const {lng, lat} = m.marker!.getLngLat();
+
+      lngLatArr.push({
+        color: color,
+        center: [lng, lat]
+      })
+    })
+
+    localStorage.setItem('Markers', JSON.stringify(lngLatArr) )
+  }
+
+  readMarkerLS(){
+    if(!localStorage.getItem('Markers')){return;}
+
+    const lngLatArr: MarkerColor[] = JSON.parse(localStorage.getItem('Markers')!);
+
+    console.log(lngLatArr[0].center);
+
+    lngLatArr.forEach(m => {
+      const newMaker = new mapboxgl.Marker({
+        color: m.color,
+        draggable: true
+      })
+      .setLngLat(m.center!)
+      .addTo(this.maps);
+
+      this.markers.push({
+        marker: newMaker,
+        color: m.color
+      })
     })
   }
 
